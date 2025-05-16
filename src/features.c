@@ -14,3 +14,49 @@
 void helloWorld() {
     printf("Hello World !!!!!!!!!!!");
 }
+
+void dimension (char *source_path) {
+    unsigned char* data = NULL;
+    int w, h, n;
+    read_image_data(source_path, &data, &w, &h, &n);
+    printf("dimension : %d, %d\n", w, h);
+}
+
+void first_pixel (char *source_path){
+    unsigned char* data = NULL;
+    int w, h, n;
+
+    read_image_data(source_path, &data, &w, &h, &n);
+    
+    unsigned char R = data[0] ;
+    unsigned char G = data[1] ;
+    unsigned char B = data[2] ;
+
+    printf("first_pixel: %d, %d, %d\n", R, G, B);
+}
+
+void tenth_pixel (char *source_path){
+    unsigned char* data = NULL;
+    int w, h, n;
+
+    read_image_data(source_path, &data, &w, &h, &n);
+    
+    unsigned char R = data[27] ;
+    unsigned char G = data[28] ;
+    unsigned char B = data[29] ;
+
+    printf("tenth_pixel: %d, %d, %d\n", R, G, B);
+}
+
+second_line(char *source_path){
+    unsigned char* data = NULL;
+    int w, h, n;
+
+    read_image_data(source_path, &data, &w, &h, &n);
+    
+    unsigned char R = data[3*w] ;
+    unsigned char G = data[3*w+1] ;
+    unsigned char B = data[3*w+2] ;
+
+    printf("second_line: %d, %d, %d\n", R, G, B);
+}
