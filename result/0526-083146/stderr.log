@@ -1,0 +1,77 @@
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/utils.c: In function ‘get_pixel’:
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/utils.c:11:21: error: ‘source_path’ undeclared (first use in this function)
+   11 |     read_image_data(source_path, &data, &w, &h, &n);
+      |                     ^~~~~~~~~~~
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/utils.c:11:21: note: each undeclared identifier is reported only once for each function it appears in
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/utils.c:11:41: warning: passing argument 3 of ‘read_image_data’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+   11 |     read_image_data(source_path, &data, &w, &h, &n);
+      |                                         ^~
+In file included from /home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/utils.c:1:
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/lib/estia_image/include/estia-image.h:13:70: note: expected ‘int *’ but argument is of type ‘const unsigned int *’
+   13 | int read_image_data(const char *filename, unsigned char **data, int *width, int *height, int *channel_count);
+      |                                                                 ~~~~~^~~~~
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/utils.c:11:45: warning: passing argument 4 of ‘read_image_data’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+   11 |     read_image_data(source_path, &data, &w, &h, &n);
+      |                                             ^~
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/lib/estia_image/include/estia-image.h:13:82: note: expected ‘int *’ but argument is of type ‘const unsigned int *’
+   13 | int read_image_data(const char *filename, unsigned char **data, int *width, int *height, int *channel_count);
+      |                                                                             ~~~~~^~~~~~
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/utils.c:11:49: warning: passing argument 5 of ‘read_image_data’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+   11 |     read_image_data(source_path, &data, &w, &h, &n);
+      |                                                 ^~
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/lib/estia_image/include/estia-image.h:13:95: note: expected ‘int *’ but argument is of type ‘const unsigned int *’
+   13 | int read_image_data(const char *filename, unsigned char **data, int *width, int *height, int *channel_count);
+      |                                                                                          ~~~~~^~~~~~~~~~~~~
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/utils.c:14:16: error: ‘NULL’ undeclared (first use in this function)
+   14 |         return NULL;
+      |                ^~~~
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/utils.c:4:1: note: ‘NULL’ is defined in header ‘<stddef.h>’; did you forget to ‘#include <stddef.h>’?
+    3 | #include "utils.h"
+  +++ |+#include <stddef.h>
+    4 | 
+gmake[2]: *** [CMakeFiles/freud.dir/build.make:121: CMakeFiles/freud.dir/src/utils.c.o] Error 1
+gmake[2]: *** Waiting for unfinished jobs....
+In file included from /home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/features.c:4:
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/features.h:18:1: warning: data definition has no type or storage class
+   18 | second_line(char *source_path);
+      | ^~~~~~~~~~~
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/features.h:18:1: warning: type defaults to ‘int’ in declaration of ‘second_line’ [-Wimplicit-int]
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/features.h:18:1: error: conflicting types for ‘second_line’; have ‘int(char *)’
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/features.h:9:6: note: previous declaration of ‘second_line’ with type ‘void(char *)’
+    9 | void second_line(char*source_path);
+      |      ^~~~~~~~~~~
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/features.c: In function ‘print_pixel’:
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/features.c:65:16: warning: ‘return’ with a value, in function returning void
+   65 |         return NULL;
+      |                ^~~~
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/features.c:60:6: note: declared here
+   60 | void print_pixel( char *filename, int x, int y ){
+      |      ^~~~~~~~~~~
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/features.c:68:16: warning: ‘return’ with a value, in function returning void
+   68 |         return (pixelRGB *) &data[n*(y*w+x)] ;
+      |                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/features.c:60:6: note: declared here
+   60 | void print_pixel( char *filename, int x, int y ){
+      |      ^~~~~~~~~~~
+gmake[2]: *** [CMakeFiles/freud.dir/build.make:93: CMakeFiles/freud.dir/src/features.c.o] Error 1
+In file included from /home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/main.c:8:
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/features.h:18:1: warning: data definition has no type or storage class
+   18 | second_line(char *source_path);
+      | ^~~~~~~~~~~
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/features.h:18:1: warning: type defaults to ‘int’ in declaration of ‘second_line’ [-Wimplicit-int]
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/features.h:18:1: error: conflicting types for ‘second_line’; have ‘int(char *)’
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/features.h:9:6: note: previous declaration of ‘second_line’ with type ‘void(char *)’
+    9 | void second_line(char*source_path);
+      |      ^~~~~~~~~~~
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/main.c: In function ‘main’:
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/main.c:60:5: error: too few arguments to function ‘print_pixel’
+   60 |     print_pixel(configuration.filenames[0]);
+      |     ^~~~~~~~~~~
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/features.h:10:6: note: declared here
+   10 | void print_pixel( char *filename, int x, int y );
+      |      ^~~~~~~~~~~
+gmake[2]: *** [CMakeFiles/freud.dir/build.make:107: CMakeFiles/freud.dir/src/main.c.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:87: CMakeFiles/freud.dir/all] Error 2
+gmake: *** [Makefile:136: all] Error 2
+
+The process '/usr/local/bin/cmake' failed with exit code 2
