@@ -1,0 +1,25 @@
+In file included from /home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/features.c:4:
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/features.h:17:1: warning: data definition has no type or storage class
+   17 | second_line(char *source_path);
+      | ^~~~~~~~~~~
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/features.h:17:1: warning: type defaults to ‘int’ in declaration of ‘second_line’ [-Wimplicit-int]
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/features.h:17:1: error: conflicting types for ‘second_line’; have ‘int(char *)’
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/features.h:9:6: note: previous declaration of ‘second_line’ with type ‘void(char *)’
+    9 | void second_line(char*source_path);
+      |      ^~~~~~~~~~~
+gmake[2]: *** [CMakeFiles/freud.dir/build.make:93: CMakeFiles/freud.dir/src/features.c.o] Error 1
+gmake[2]: *** Waiting for unfinished jobs....
+In file included from /home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/main.c:8:
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/features.h:17:1: warning: data definition has no type or storage class
+   17 | second_line(char *source_path);
+      | ^~~~~~~~~~~
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/features.h:17:1: warning: type defaults to ‘int’ in declaration of ‘second_line’ [-Wimplicit-int]
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/features.h:17:1: error: conflicting types for ‘second_line’; have ‘int(char *)’
+/home/runner/work/pgi-2025-the_ethereal_skyscrapers/pgi-2025-the_ethereal_skyscrapers/src/features.h:9:6: note: previous declaration of ‘second_line’ with type ‘void(char *)’
+    9 | void second_line(char*source_path);
+      |      ^~~~~~~~~~~
+gmake[2]: *** [CMakeFiles/freud.dir/build.make:107: CMakeFiles/freud.dir/src/main.c.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:87: CMakeFiles/freud.dir/all] Error 2
+gmake: *** [Makefile:136: all] Error 2
+
+The process '/usr/local/bin/cmake' failed with exit code 2
