@@ -50,9 +50,21 @@ void second_line(char*source_path){
     
     read_image_data(source_path, &data, &w, &h, &n);
     
-    unsigned char R = data[4464];
-    unsigned char G = data[4465];
-    unsigned char B = data[4466];
+    unsigned char R = data[3*w];
+    unsigned char G = data[3*w+1];
+    unsigned char B = data[3*w+2];
 
     printf("second_line: %d, %d, %d", R, G, B);
+}
+
+void print_pixel(char* source_path, int x, int y){
+    unsigned char* data = NULL;
+    int w, h, n;
+
+    read_image_data(source_path, &data, &w, &h, &n);
+    
+    pixelRGB * pixel = get_pixel(data, w, h, n, x, y);
+    
+
+    printf("print_pixel (%d %d): %d, %d, %d\n", x, y, pixel->R, pixel->G, pixel->B);
 }
