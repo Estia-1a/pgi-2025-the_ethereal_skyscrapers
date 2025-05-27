@@ -14,7 +14,4 @@ pixelRGB * get_pixel( unsigned char* data, const unsigned int width, const unsig
     else if (x>width||y>height){
         return NULL ;
     }
-    
-
-    
 }
