@@ -1,5 +1,5 @@
 #include <estia-image.h>
-
+#include <stddef.h>
 #include "utils.h"
 
 /**
@@ -7,13 +7,11 @@
  * 
  */
 
- pixelRGB * get_pixel( unsigned char* data, const unsigned int w, const unsigned int h, const unsigned int n, const unsigned int x, const unsigned int y ){
-
-    if( (x>w) || (y>h) || (!data)){
-        return NULL;
+pixelRGB * get_pixel( unsigned char* data, const unsigned int width, const unsigned int height, const unsigned int n, const unsigned int x, const unsigned int y ){
+    if (data){
+        return (pixelRGB *) &data[(y * width + x) * n] ;
     }
-    else{
-        return (pixelRGB *) &data[n*(y*w+x)] ;
+    else if (x>width||y>height){
+        return NULL ;
     }
- }
-
+}

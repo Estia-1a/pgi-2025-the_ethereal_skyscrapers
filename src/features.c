@@ -53,19 +53,19 @@ void second_line(char*source_path){
     unsigned char R = data[3*w];
     unsigned char G = data[3*w+1];
     unsigned char B = data[3*w+2];
+    
 
     printf("second_line: %d, %d, %d", R, G, B);
 }
 
-void print_pixel( char *filename, int x, int y ){
-    unsigned char *data = NULL;
+void print_pixel(char* source_path, int x, int y){
+    unsigned char* data = NULL;
     int w, h, n;
-    read_image_data(const char *filename, unsigned char **data, int *w, int *h, int *n);
-    if( (x>w) || (y>h) || !data){
-        return NULL;
-    }
-    else{
-        return (pixelRGB *) &data[n*(y*w+x)] ;
-    }
 
+    read_image_data(source_path, &data, &w, &h, &n);
+    
+    pixelRGB * pixel = get_pixel(data, w, h, n, x, y);
+    
+
+    printf("print_pixel (%d %d): %d, %d, %d\n", x, y, pixel->R, pixel->G, pixel->B);
 }
