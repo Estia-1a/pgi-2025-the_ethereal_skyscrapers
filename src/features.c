@@ -60,7 +60,7 @@ void second_line(char*source_path){
 void print_pixel( char *filename, int x, int y ){
     unsigned char *data = NULL;
     int w, h, n;
-    int read_image_data(const char *filename, unsigned char **data, int *w, int *h, int *n);
+    read_image_data(const char *filename, unsigned char **data, int *w, int *h, int *n);
     if( (x>w) || (y>h) || !data){
         return NULL;
     }
