@@ -102,3 +102,76 @@ void max_pixel(char*source_path){
     
     printf("max_pixel (%d %d): %d, %d, %d\n", max_x, max_y, max_pixel->R, max_pixel->G, max_pixel->B);
 }
+
+void min_pixel(char*source_path){
+    unsigned char* data = NULL;
+    int w, h, n, x, y; 
+    int min_x = 0;
+    int min_y = 0;
+    int sum = 0;
+
+    read_image_data(source_path, &data, &w, &h, &n);
+    pixelRGB * min_pixel = NULL;
+    pixelRGB * first_pixel=get_pixel(data, w, h, n, 0,0);
+    int sum_min = first_pixel->R + first_pixel->G + first_pixel->B;
+    for(y=0; y<h; y++){
+        for(x=0; x<w; x++){
+        
+            pixelRGB * pixel = get_pixel(data, w, h, n, x, y);
+
+            sum = pixel->R + pixel->G + pixel->B;
+
+            if(sum<sum_min){
+                sum_min = sum;
+                min_x = x;
+                min_y = y;
+                min_pixel=pixel;
+
+
+
+            }
+
+        }
+    }
+    
+    printf("min_pixel (%d %d): %d, %d, %d\n", min_x, min_y, min_pixel->R, min_pixel->G, min_pixel->B);
+}
+
+void max_component(char*source_path){
+    unsigned char* data = NULL;
+    int w, h, n, x, y; 
+    int R_x = 0;
+    int R_y = 0;
+    int G_x = 0;
+    int G_y = 0;
+    int B_x = 0;
+    int B_y = 0;
+    int R_0 = first_pixel->R;
+    int G_0 = first_pixel->G;
+    int B_0 = first_pixel->B;
+    int i = 0;
+
+    read_image_data(source_path, &data, &w, &h, &n);
+    pixelRGB * min_pixel = NULL;
+    for(y=0; y<h; y++){
+        for(x=0; x<w; x++){
+        
+            pixelRGB * pixel = get_pixel(data, w, h, n, x, y);
+
+            sum = pixel->R + pixel->G + pixel->B;
+
+            if(R_0<R[i]){
+                R = 
+                min_x = x;
+                min_y = y;
+                min_pixel=pixel;
+
+
+
+            }
+
+        }
+    }
+    
+    printf("min_pixel (%d %d): %d, %d, %d\n", min_x, min_y, min_pixel->R, min_pixel->G, min_pixel->B);
+}
