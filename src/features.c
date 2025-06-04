@@ -63,9 +63,16 @@ void print_pixel(char* source_path, int x, int y){
     int w, h, n;
 
     read_image_data(source_path, &data, &w, &h, &n);
-    
     pixelRGB * pixel = get_pixel(data, w, h, n, x, y);
+    printf("print_pixel (%d %d): %d, %d, %d\n", x, y, pixel->R, pixel->G, pixel->B);
+}
+
+void max_pixel (char *source_path){
+    unsigned char* data = NULL;
+    int w, h, n, x=0, y=0, sum=0, Rmax=0, Gmax=0, Bmax=0;
+    read_image_data(source_path, &data, &w, &h, &n);
+    pixelRGB * pixel;
     
 
-    printf("print_pixel (%d %d): %d, %d, %d\n", x, y, pixel->R, pixel->G, pixel->B);
+
 }
