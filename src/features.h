@@ -18,5 +18,6 @@ void max_pixel(char *source_path);
 
 void min_pixel(char *source_path);
 
-void max_component(char*source_path, char index_component);
+void max_component(char *source_path, char color_pixel);
+
 #endif
