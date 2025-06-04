@@ -172,12 +172,56 @@ void min_component(char *source_path, char color_pixel){
             else if (color_pixel=='B'){
                 color_pixel_value=pixel->B;
             }
-            if(color_pixel_value<color_pixel_min){
-                color_pixel_min = color_pixel_value;
-                min_x = x;
-                min_y = y;
+            if(color_pixel_value>color_pixel_max){
+                color_pixel_max = color_pixel_value;
+                max_x = x;
+                max_y = y;
             }
         }
     } 
-    printf("min_component %c (%d %d): %d\n", color_pixel, min_x, min_y, color_pixel_min);
+    printf("max_component %c (%d %d): %d\n", color_pixel, max_x, max_y, color_pixel_max);
+}
+
+void min_component(char *source_path, char color_pixel){
+    unsigned char* data = NULL;
+    int w, h, n, x, y; 
+    int max_x = 0;
+    int max_y = 0;
+    int color_pixel_value;
+    int color_pixel_min ;
+    read_image_data(source_path, &data, &w, &h, &n);
+    pixelRGB * first_pixel = get_pixel(data, w, h, n, 0,0);
+    
+    if (color_pixel=='R'){
+        color_pixel_min = first_pixel->R;
+    }
+    else if (color_pixel=='G'){
+        color_pixel_min=first_pixel->G;
+    }
+    else if (color_pixel=='B'){
+            color_pixel_min=first_pixel->B;
+    }
+    
+    for(y=0; y<h; y++){
+        for(x=0; x<w; x++){       
+            pixelRGB * pixel = get_pixel(data, w, h, n, x, y);
+            
+            
+            if (color_pixel=='R'){
+                color_pixel_value=pixel->R;
+            }
+            else if (color_pixel=='G'){
+                color_pixel_value=pixel->G;
+            }
+            else if (color_pixel=='B'){
+                color_pixel_value=pixel->B;
+            }
+            if(color_pixel_value<color_pixel_min){
+                color_pixel_min = color_pixel_value;
+                max_x = x;
+                max_y = y;
+            }
+        }
+    } 
+    printf("min_component %c (%d %d): %d\n", color_pixel, max_x, max_y, color_pixel_min);
 }

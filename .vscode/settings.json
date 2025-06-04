@@ -7,7 +7,7 @@
             "images/input/image.jpeg",
             "-c",
             "min_component",
-            "R"
+            "B"
         ],
         "cwd": "${workspaceFolder}"
     },
