@@ -63,7 +63,21 @@ int main(int argc, char **argv) {
     
     print_pixel(configuration.filenames[0] ,x , y);
   }
-
   
+  if ( strncmp( configuration.command, "max_pixel", 9 ) == 0 ) {
+    /* max_pixel() function is defined in feature.h and implemented in feature.c */
+    max_pixel(configuration.filenames[0]);
+  }
+  
+  if ( strncmp( configuration.command, "min_pixel", 9 ) == 0 ) {
+    /* min_pixel() function is defined in feature.h and implemented in feature.c */
+    min_pixel(configuration.filenames[0]);
+  }
+
+  if ( strncmp( configuration.command, "max_component", 13 ) == 0 ) {
+    /* max_component() function is defined in feature.h and implemented in feature.c */
+    max_component(configuration.filenames[0],configuration.arguments[0][0]);
+  }
+
   return 0;
 }
