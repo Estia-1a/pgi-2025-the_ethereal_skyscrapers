@@ -7,8 +7,7 @@
             "images/input/image.jpeg",
             "-c",
             "max_component",
-            "R",
-            
+            "R"
         ],
         "cwd": "${workspaceFolder}"
     },
