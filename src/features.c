@@ -129,6 +129,39 @@ void max_component(char *source_path, char color_pixel){
     read_image_data(source_path, &data, &w, &h, &n);
     for(y=0; y<h; y++){
         for(x=0; x<w; x++){       
+            pixelRGB * first_pixel = get_pixel(data, w, h, n, 0, 0);
+            int color_pixel_min;
+            if (color_pixel=='R'){
+                color_pixel_min= first_pixel->R;
+            }
+            else if (color_pixel=='G'){
+                color_pixel_min= first_pixel->G;
+            }
+            else if (color_pixel=='B'){
+                color_pixel_min= first_pixel->B;
+            }
+ 
+            if(color_pixel_value>color_pixel_max){
+                color_pixel_max = color_pixel_value;
+                max_x = x;
+                max_y = y;
+            }
+        }
+    } 
+    printf("max_component %c (%d %d): %d\n", color_pixel, max_x, max_y, color_pixel_max);
+}
+
+void min_component(char *source_path, char color_pixel){
+    unsigned char* data = NULL;
+    int w, h, n, x, y; 
+    int min_x = 0;
+    int min_y = 0;
+    int color_pixel_value=0;
+    int color_pixel_min=0;
+    
+    read_image_data(source_path, &data, &w, &h, &n);
+    for(y=0; y<h; y++){
+        for(x=0; x<w; x++){       
             pixelRGB * pixel = get_pixel(data, w, h, n, x, y);
             if (color_pixel=='R'){
                 color_pixel_value=pixel->R;
@@ -139,12 +172,12 @@ void max_component(char *source_path, char color_pixel){
             else if (color_pixel=='B'){
                 color_pixel_value=pixel->B;
             }
-            if(color_pixel_value>color_pixel_max){
-                color_pixel_max = color_pixel_value;
-                max_x = x;
-                max_y = y;
+            if(color_pixel_value<color_pixel_min){
+                color_pixel_min = color_pixel_value;
+                min_x = x;
+                min_y = y;
             }
         }
     } 
-    printf("max_component %c (%d %d): %d\n", color_pixel, max_x, max_y, color_pixel_max);
+    printf("min_component %c (%d %d): %d\n", color_pixel, min_x, min_y, color_pixel_min);
 }
