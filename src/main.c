@@ -70,7 +70,7 @@ int main(int argc, char **argv) {
     min_pixel(configuration.filenames[0]);
   }
 
-  if ( strncmp( configuration.command, "max_component", 13 ) == 0 ) {
+  
   if ( strncmp( configuration.command, "max_component", 13 ) == 0 ) {
     /* max_component() function is defined in feature.h and implemented in feature.c */
     
