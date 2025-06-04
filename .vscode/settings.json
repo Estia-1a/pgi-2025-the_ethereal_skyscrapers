@@ -6,7 +6,9 @@
             "-f",
             "images/input/image.jpeg",
             "-c",
-            "second_line"
+            "print_pixel",
+            "45",
+            "500"
         ],
         "cwd": "${workspaceFolder}"
     },
