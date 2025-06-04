@@ -50,9 +50,9 @@ void second_line(char*source_path){
     
     read_image_data(source_path, &data, &w, &h, &n);
     
-    unsigned char R = data[4464];
-    unsigned char G = data[4465];
-    unsigned char B = data[4466];
+    unsigned char R = data[3*w];
+    unsigned char G = data[3*w+1];
+    unsigned char B = data[3*w+2];
 
     printf("second_line: %d, %d, %d", R, G, B);
 }
