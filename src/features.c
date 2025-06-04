@@ -1,6 +1,6 @@
 #include <estia-image.h>
 #include <stdio.h>
-
+#include <stdlib.h>
 #include "features.h"
 #include "utils.h"
 
@@ -67,7 +67,7 @@ void print_pixel(char* source_path, int x, int y){
     printf("print_pixel (%d %d): %d, %d, %d\n", x, y, pixel->R, pixel->G, pixel->B);
 }
 
-void max_pixel(char*source_path){
+char* max_pixel(char* source_path){
     unsigned char* data = NULL;
     int w, h, n, x, y; 
     int max_x = 0;
@@ -90,9 +90,13 @@ void max_pixel(char*source_path){
         }
     } 
     printf("max_pixel (%d %d): %d, %d, %d\n", max_x, max_y, max_pixel->R, max_pixel->G, max_pixel->B);
+    char* result=malloc(100);
+    sprintf(result,"max_pixel (%d %d): %d, %d, %d\n", max_x, max_y, max_pixel->R, max_pixel->G, max_pixel->B);
+    return result;
+    
 }
 
-void min_pixel(char*source_path){
+char* min_pixel(char* source_path){
     unsigned char* data = NULL;
     int w, h, n, x, y; 
     int min_x = 0;
@@ -116,9 +120,12 @@ void min_pixel(char*source_path){
         }
     } 
     printf("min_pixel (%d %d): %d, %d, %d\n", min_x, min_y, min_pixel->R, min_pixel->G, min_pixel->B);
+    char* result=malloc(100);
+    sprintf(result,"min_pixel (%d %d): %d, %d, %d\n", min_x, min_y, min_pixel->R, min_pixel->G, min_pixel->B);
+    return result;
 }
 
-void max_component(char *source_path, char color_pixel){
+char* max_component(char *source_path, char color_pixel){
     unsigned char* data = NULL;
     int w, h, n, x, y; 
     int max_x = 0;
@@ -147,4 +154,75 @@ void max_component(char *source_path, char color_pixel){
         }
     } 
     printf("max_component %c (%d %d): %d\n", color_pixel, max_x, max_y, color_pixel_max);
+    char* result=malloc(100);
+    sprintf(result,"max_component %c (%d %d): %d\n", color_pixel, max_x, max_y, color_pixel_max);
+    return result;
+}
+
+char* min_component(char *source_path, char color_pixel){
+    unsigned char* data = NULL;
+    int w, h, n, x, y; 
+    int min_x = 0;
+    int min_y = 0;
+    int color_pixel_value=0;
+
+    read_image_data(source_path, &data, &w, &h, &n);
+
+    pixelRGB * first_pixel = get_pixel(data, w, h, n, 0, 0);
+    int color_pixel_min;
+    if (color_pixel=='R'){
+        color_pixel_min= first_pixel->R;
+    }
+    else if (color_pixel=='G'){
+        color_pixel_min= first_pixel->G;
+    }
+    else if (color_pixel=='B'){
+        color_pixel_min= first_pixel->B;
+    }
+    
+    for(y=0; y<h; y++){
+        for(x=0; x<w; x++){       
+            pixelRGB * pixel = get_pixel(data, w, h, n, x, y);
+            if (color_pixel=='R'){
+                color_pixel_value=pixel->R;
+            }
+            else if (color_pixel=='G'){
+                color_pixel_value=pixel->G;
+            }
+            else if (color_pixel=='B'){
+                color_pixel_value=pixel->B;
+            }
+            if(color_pixel_value<color_pixel_min){
+                color_pixel_min = color_pixel_value;
+                min_x = x;
+                min_y = y;
+            }
+        }
+    } 
+    printf("min_component %c (%d %d): %d\n", color_pixel, min_x, min_y, color_pixel_min);
+    char* result=malloc(100);
+    sprintf(result,"min_component %c (%d %d): %d\n", color_pixel, min_x, min_y, color_pixel_min);
+    return result;
+}
+
+void stat_report(char *source_path){
+    FILE *report = fopen("C:/PGI1A/pgi-2025-the_ethereal_skyscrapers/file.txt", "w");
+    
+    char* maxpixel = max_pixel(source_path);
+    char* minpixel = min_pixel(source_path);
+    char* max_componentR = max_component(source_path,'R');
+    char* max_componentG = max_component(source_path,'G');
+    char* max_componentB = max_component(source_path,'B');
+    char* min_componentR = min_component(source_path,'R');
+    char* min_componentG = min_component(source_path,'G');
+    char* min_componentB = min_component(source_path,'B');
+    fprintf(report,"%s",maxpixel);
+    fprintf(report,"%s",minpixel);
+    fprintf(report,"%s",max_componentR);
+    fprintf(report,"%s",max_componentG);
+    fprintf(report,"%s",max_componentB);
+    fprintf(report,"%s",min_componentR);
+    fprintf(report,"%s",min_componentG);
+    fprintf(report,"%s",min_componentB);
+    fclose(report);
 }
