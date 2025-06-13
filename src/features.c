@@ -192,3 +192,38 @@ void min_component(char *source_path, char color_pixel){
     } 
     printf("min_component %c (%d %d): %d\n", color_pixel, max_x, max_y, color_pixel_min);
 }
+
+void stat_report(char *source_path){
+    FILE *fichier = fopen("report.txt","w");
+    
+   // int A = max_pixel(source_path);
+    fprintf(fichier, "max_pixel : %d\n", 255);
+
+    /*min_pixel(source_path);
+    fprintf(fichier, "max_pixel(source_path)\n"  )
+
+    max_component(source_path, 'R');
+    fprintf(fichier, "max_pixel(source_path)\n")
+
+    max_component(source_path, 'G');
+    fprintf(fichier, "max_pixel(source_path)\n")
+
+    max_component(source_path, 'B');
+    fprintf(fichier, "max_pixel(source_path)\n")
+
+    min_component(source_path, 'R');
+    fprintf(fichier, "max_pixel(source_path)\n")
+
+    min_component(source_path, 'G');
+    fprintf(fichier, "max_pixel(source_path)\n")
+
+    min_component(source_path, 'B');
+    fprintf(fichier, "max_pixel(source_path)\n")*/
+
+    fclose(fichier);
+
+
+}
+    
+    
+    
