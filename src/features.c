@@ -206,7 +206,7 @@ char* min_component(char *source_path, char color_pixel){
 }
 
 void stat_report(char *source_path){
-    FILE *report = fopen("C:/PGI1A/pgi-2025-the_ethereal_skyscrapers/file.txt", "w");
+    FILE *report = fopen("file.txt", "w");
     
     char* maxpixel = max_pixel(source_path);
     char* minpixel = min_pixel(source_path);
@@ -225,4 +225,52 @@ void stat_report(char *source_path){
     fprintf(report,"%s",min_componentG);
     fprintf(report,"%s",min_componentB);
     fclose(report);
+}
+
+void color_blue(char *source_path){
+    unsigned char* data = NULL;
+    int w, h, n, x, y; 
+    read_image_data(source_path, &data, &w, &h, &n);
+    for(y=0; y<h; y++){
+        for(x=0; x<w; x++){       
+            pixelRGB * pixel = get_pixel(data, w, h, n, x, y);
+            pixel->R=0;
+            pixel->G=0;
+        }
+    }
+    write_image_data("image_out.bmp", data, w, h);
+}
+
+void color_invert(char *source_path){
+    unsigned char* data = NULL;
+    int w, h, n, x, y; 
+    read_image_data(source_path, &data, &w, &h, &n);
+    for(y=0; y<h; y++){
+        for(x=0; x<w; x++){       
+            pixelRGB * pixel = get_pixel(data, w, h, n, x, y);
+            pixel->R=255-pixel->R;
+            pixel->G=255-pixel->G;
+            pixel->B=255-pixel->B;
+        }
+    }
+    write_image_data("image_out.bmp", data, w, h);
+}
+
+void mirror_horizontal(char *source_path){
+    unsigned char* data = NULL;
+    int w, h, n,  x, y; 
+    read_image_data(source_path, &data, &w, &h, &n);
+    unsigned char* mirror_h_data = malloc(w * h * n);
+    for(y=0; y<h; y++){
+        for(x=0; x<w; x++){       
+            pixelRGB* current_pixel = get_pixel(data, w, h, n, x, y);
+            int nouveau_x = w - 1 - x;
+            int nouveau_y = y;
+            pixelRGB* mirror_h_pixel = get_pixel(mirror_h_data, w, h, n, nouveau_x, nouveau_y);
+            mirror_h_pixel->R = current_pixel->R;
+            mirror_h_pixel->G = current_pixel->G;
+            mirror_h_pixel->B = current_pixel->B;
+        }
+    }
+    write_image_data("image_out.bmp", mirror_h_data, w, h);
 }

@@ -24,8 +24,10 @@ char* min_component(char *source_path, char color_pixel);
 
 void stat_report(char *source_path);
 
+void color_blue(char *source_path);
 
+void color_invert(char *source_path);
 
-void stat_report(char *source_path);
+void mirror_horizontal(char *source_path);
 
 #endif
