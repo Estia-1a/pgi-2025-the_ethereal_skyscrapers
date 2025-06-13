@@ -324,7 +324,7 @@ void rotate_cw(char *source_path){
     for(y=0; y<h; y++){
         for(x=0; x<w; x++){       
             pixelRGB* current_pixel = get_pixel(data, w, h, n, x, y);
-            int nouveau_x = h - 1 - y;
+            int nouveau_x = h - y;
             int nouveau_y = x;
             pixelRGB* rotate_pixel = get_pixel(rotate_data, h, w, n, nouveau_x, nouveau_y);
             rotate_pixel->R = current_pixel->R;
@@ -401,7 +401,7 @@ void mirror_total(char *source_path){
     for(y=0; y<h; y++){
         for(x=0; x<w; x++){       
             pixelRGB* current_pixel = get_pixel(data, w, h, n, x, y);
-            int nouveau_x = w-1-x;
+            int nouveau_x = w-x;
             int nouveau_y = h-1-y;
             pixelRGB* mirror_t_pixel = get_pixel(mirror_t_data, w, h, n, nouveau_x, nouveau_y);
             mirror_t_pixel->R = current_pixel->R;
