@@ -86,6 +86,11 @@ int main(int argc, char **argv) {
     /* stat_report() function is defined in feature.h and implemented in feature.c */
     stat_report(configuration.filenames[0]);
   }
+
+  if ( strncmp( configuration.command, "color_red", 9 ) == 0 ) {
+    /* color_red() function is defined in feature.h and implemented in feature.c */
+    color_red(configuration.filenames[0]);
+  }
   
   if ( strncmp( configuration.command, "color_blue", 10 ) == 0 ) {
     /* color_blue() function is defined in feature.h and implemented in feature.c */
@@ -97,9 +102,19 @@ int main(int argc, char **argv) {
     color_invert(configuration.filenames[0]);
   }
 
+  if ( strncmp( configuration.command, "color_gray_luminance", 20 ) == 0 ) {
+    /* color_gray_luminance() function is defined in feature.h and implemented in feature.c */
+    color_gray_luminance(configuration.filenames[0]);
+  }
+
   if ( strncmp( configuration.command, "mirror_horizontal", 17 ) == 0 ) {
     /* mirror_horizontal() function is defined in feature.h and implemented in feature.c */
     mirror_horizontal(configuration.filenames[0]);
+  }
+
+  if ( strncmp( configuration.command, "rotate_acw", 10 ) == 0 ) {
+    /* rotate_acw() function is defined in feature.h and implemented in feature.c */
+    rotate_acw(configuration.filenames[0]);
   }
 
   return 0;

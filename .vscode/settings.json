@@ -6,7 +6,7 @@
             "-f",
             "images/input/image.jpeg",
             "-c",
-            "mirror_horizontal"
+            "color_red"
             
         ],
         "cwd": "${workspaceFolder}"
