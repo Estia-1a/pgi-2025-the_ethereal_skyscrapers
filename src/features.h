@@ -36,10 +36,16 @@ void color_invert(char *source_path);
 
 void color_gray_luminance(char *source_path);
 
+void rotate_cw(char *source_path);
+
 void mirror_horizontal(char *source_path);
 
 void rotate_acw(char *source_path);
 
 void mirror_vertical(char *source_path);
+
+void mirror_total(char *source_path);
+
+void scale_crop(char *sourcepath, int center_x, int center_y, int width, int height);
 
 #endif
