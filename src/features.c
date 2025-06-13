@@ -64,7 +64,7 @@ void print_pixel(char* source_path, int x, int y){
 
     read_image_data(source_path, &data, &w, &h, &n);
     pixelRGB * pixel = get_pixel(data, w, h, n, x, y);
-    printf("print_pixel (%d %d): %d, %d, %d\n", x, y, pixel->R, pixel->G, pixel->B);
+    printf("print_pixel (%d, %d): %d, %d, %d\n", x, y, pixel->R, pixel->G, pixel->B);
 }
 
 char* max_pixel(char* source_path){
@@ -89,9 +89,9 @@ char* max_pixel(char* source_path){
             }
         }
     } 
-    printf("max_pixel (%d %d): %d, %d, %d\n", max_x, max_y, max_pixel->R, max_pixel->G, max_pixel->B);
+    printf("max_pixel (%d, %d): %d, %d, %d\n", max_x, max_y, max_pixel->R, max_pixel->G, max_pixel->B);
     char* result=malloc(100);
-    sprintf(result,"max_pixel (%d %d): %d, %d, %d\n", max_x, max_y, max_pixel->R, max_pixel->G, max_pixel->B);
+    sprintf(result,"max_pixel (%d, %d): %d, %d, %d\n", max_x, max_y, max_pixel->R, max_pixel->G, max_pixel->B);
     return result;
     
 }
@@ -119,9 +119,9 @@ char* min_pixel(char* source_path){
             }
         }
     } 
-    printf("min_pixel (%d %d): %d, %d, %d\n", min_x, min_y, min_pixel->R, min_pixel->G, min_pixel->B);
+    printf("min_pixel (%d, %d): %d, %d, %d\n", min_x, min_y, min_pixel->R, min_pixel->G, min_pixel->B);
     char* result=malloc(100);
-    sprintf(result,"min_pixel (%d %d): %d, %d, %d\n", min_x, min_y, min_pixel->R, min_pixel->G, min_pixel->B);
+    sprintf(result,"min_pixel (%d, %d): %d, %d, %d\n", min_x, min_y, min_pixel->R, min_pixel->G, min_pixel->B);
     return result;
 }
 
@@ -153,9 +153,9 @@ char* max_component(char *source_path, char color_pixel){
             }
         }
     }
-    printf("max_component %c (%d %d): %d\n", color_pixel, max_x, max_y, color_pixel_max);
+    printf("max_component %c (%d, %d): %d\n", color_pixel, max_x, max_y, color_pixel_max);
     char* result=malloc(100);
-    sprintf(result,"max_component %c (%d %d): %d\n", color_pixel, max_x, max_y, color_pixel_max);
+    sprintf(result,"max_component %c (%d, %d): %d\n", color_pixel, max_x, max_y, color_pixel_max);
     return result;
 }
 
@@ -199,9 +199,9 @@ char* min_component(char *source_path, char color_pixel){
             }
         }
     } 
-    printf("min_component %c (%d %d): %d\n", color_pixel, min_x, min_y, color_pixel_min);
+    printf("min_component %c (%d, %d): %d\n", color_pixel, min_x, min_y, color_pixel_min);
     char* result=malloc(100);
-    sprintf(result,"min_component %c (%d %d): %d\n", color_pixel, min_x, min_y, color_pixel_min);
+    sprintf(result,"min_component %c (%d, %d): %d\n", color_pixel, min_x, min_y, color_pixel_min);
     return result;
 }
 
@@ -324,7 +324,7 @@ void rotate_cw(char *source_path){
     for(y=0; y<h; y++){
         for(x=0; x<w; x++){       
             pixelRGB* current_pixel = get_pixel(data, w, h, n, x, y);
-            int nouveau_x = h - 1 - y;
+            int nouveau_x = h - y;
             int nouveau_y = x;
             pixelRGB* rotate_pixel = get_pixel(rotate_data, h, w, n, nouveau_x, nouveau_y);
             rotate_pixel->R = current_pixel->R;
@@ -401,7 +401,7 @@ void mirror_total(char *source_path){
     for(y=0; y<h; y++){
         for(x=0; x<w; x++){       
             pixelRGB* current_pixel = get_pixel(data, w, h, n, x, y);
-            int nouveau_x = w-1-x;
+            int nouveau_x = w-x;
             int nouveau_y = h-1-y;
             pixelRGB* mirror_t_pixel = get_pixel(mirror_t_data, w, h, n, nouveau_x, nouveau_y);
             mirror_t_pixel->R = current_pixel->R;
