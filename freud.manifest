@@ -21,3 +21,4 @@ rotate_acw
 mirror_vertical
 mirror_total
 scale_crop
+color_desaturate

@@ -438,3 +438,36 @@ void scale_crop(char *source_path, int center_x, int center_y, int width, int he
     }
     write_image_data("image_out.bmp",cropped_data,width,height);
 }
+
+void color_desaturate(char *source_path){
+    unsigned char* data = NULL;
+    int w, h, n, x, y; 
+    read_image_data(source_path, &data, &w, &h, &n);
+    for(y=0; y<h; y++){
+        for(x=0; x<w; x++){       
+            pixelRGB * pixel = get_pixel(data, w, h, n, x, y);
+            unsigned char val_min = pixel->R;
+            if(val_min>pixel->G){
+                val_min = pixel->G;
+            }
+            if(val_min>pixel->B){
+                val_min = pixel->B;
+            }
+
+            unsigned char val_max = pixel->R;
+            if(val_max<pixel->G){
+                val_max = pixel->G;
+            }
+            if(val_max<pixel->B){
+                val_max = pixel->B;
+            }
+
+            unsigned char value =(val_min+val_max)/2 ;
+            pixel->R=value;
+            pixel->G=value;
+            pixel->B=value;
+        }
+
+    }
+    write_image_data("image_out.bmp", data, w, h);
+}
