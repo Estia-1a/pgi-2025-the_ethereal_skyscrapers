@@ -127,15 +127,15 @@ char* min_pixel(char* source_path){
 
 char* max_component(char *source_path, char color_pixel){
     unsigned char* data = NULL;
-    int w, h, n, x, y; 
+    int w, h, n, x, y;
     int max_x = 0;
     int max_y = 0;
     int color_pixel_value=0;
     int color_pixel_max=0;
-    
+   
     read_image_data(source_path, &data, &w, &h, &n);
     for(y=0; y<h; y++){
-        for(x=0; x<w; x++){       
+        for(x=0; x<w; x++){      
             pixelRGB * pixel = get_pixel(data, w, h, n, x, y);
             if (color_pixel=='R'){
                 color_pixel_value=pixel->R;
@@ -152,7 +152,7 @@ char* max_component(char *source_path, char color_pixel){
                 max_y = y;
             }
         }
-    } 
+    }
     printf("max_component %c (%d %d): %d\n", color_pixel, max_x, max_y, color_pixel_max);
     char* result=malloc(100);
     sprintf(result,"max_component %c (%d %d): %d\n", color_pixel, max_x, max_y, color_pixel_max);
@@ -227,6 +227,20 @@ void stat_report(char *source_path){
     fclose(report);
 }
 
+void color_green(char *source_path){
+    unsigned char* data = NULL;
+    int w, h, n, x, y; 
+    read_image_data(source_path, &data, &w, &h, &n);
+    for(y=0; y<h; y++){
+        for(x=0; x<w; x++){       
+            pixelRGB * pixel = get_pixel(data, w, h, n, x, y);
+            pixel->R=0;
+            pixel->B=0;
+        }
+    }
+    write_image_data("image_out.bmp", data, w, h);
+}
+
 void color_red(char *source_path){
     unsigned char* data = NULL;
     int w, h, n, x, y; 
@@ -250,6 +264,22 @@ void color_blue(char *source_path){
             pixelRGB * pixel = get_pixel(data, w, h, n, x, y);
             pixel->R=0;
             pixel->G=0;
+        }
+    }
+    write_image_data("image_out.bmp", data, w, h);
+}
+
+void color_gray(char *source_path){
+    unsigned char* data = NULL;
+    int w, h, n, x, y; 
+    read_image_data(source_path, &data, &w, &h, &n);
+    for(y=0; y<h; y++){
+        for(x=0; x<w; x++){       
+            pixelRGB * pixel = get_pixel(data, w, h, n, x, y);
+            unsigned char value = (pixel->R + pixel->G + pixel->B) / 3;
+            pixel->R=value;
+            pixel->G=value;
+            pixel->B=value;
         }
     }
     write_image_data("image_out.bmp", data, w, h);
@@ -323,4 +353,23 @@ void rotate_acw(char *source_path){
         }
     }
     write_image_data("image_out.bmp", rotate_a_data, h, w);
+}
+
+void mirror_vertical(char *source_path){
+    unsigned char* data = NULL;
+    int w, h, n, x, y; 
+    read_image_data(source_path, &data, &w, &h, &n);
+    unsigned char* mirror_v_data = malloc(w * h * n);
+    for(y=0; y<h; y++){
+        for(x=0; x<w; x++){       
+            pixelRGB* current_pixel = get_pixel(data, w, h, n, x, y);
+            int nouveau_x =x;
+            int nouveau_y = h-1-y;
+            pixelRGB* mirror_v_pixel = get_pixel(mirror_v_data, w, h, n, nouveau_x, nouveau_y);
+            mirror_v_pixel->R = current_pixel->R;
+            mirror_v_pixel->G = current_pixel->G;
+            mirror_v_pixel->B = current_pixel->B;
+        }
+    }
+    write_image_data("image_out.bmp", mirror_v_data, w, h);
 }
