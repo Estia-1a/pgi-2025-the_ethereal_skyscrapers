@@ -227,6 +227,20 @@ void stat_report(char *source_path){
     fclose(report);
 }
 
+void color_red(char *source_path){
+    unsigned char* data = NULL;
+    int w, h, n, x, y; 
+    read_image_data(source_path, &data, &w, &h, &n);
+    for(y=0; y<h; y++){
+        for(x=0; x<w; x++){       
+            pixelRGB * pixel = get_pixel(data, w, h, n, x, y);
+            pixel->G=0;
+            pixel->B=0;
+        }
+    }
+    write_image_data("image_out.bmp", data, w, h);
+}
+
 void color_blue(char *source_path){
     unsigned char* data = NULL;
     int w, h, n, x, y; 
@@ -256,6 +270,22 @@ void color_invert(char *source_path){
     write_image_data("image_out.bmp", data, w, h);
 }
 
+void color_gray_luminance(char *source_path){
+    unsigned char* data = NULL;
+    int w, h, n, x, y; 
+    read_image_data(source_path, &data, &w, &h, &n);
+    for(y=0; y<h; y++){
+        for(x=0; x<w; x++){       
+            pixelRGB * pixel = get_pixel(data, w, h, n, x, y);
+            unsigned char value = 0.21 * pixel->R + 0.72 * pixel->G + 0.07 * pixel->B;
+            pixel->R=value;
+            pixel->G=value;
+            pixel->B=value;
+        }
+    }
+    write_image_data("image_out.bmp", data, w, h);
+}
+
 void mirror_horizontal(char *source_path){
     unsigned char* data = NULL;
     int w, h, n,  x, y; 
@@ -273,4 +303,24 @@ void mirror_horizontal(char *source_path){
         }
     }
     write_image_data("image_out.bmp", mirror_h_data, w, h);
+}
+
+void rotate_acw(char *source_path){
+    unsigned char* data = NULL;
+    int w, h, n, x, y; 
+    read_image_data(source_path, &data, &w, &h, &n);
+    
+    unsigned char* rotate_a_data = malloc(w * h * n);
+    for(y=0; y<h; y++){
+        for(x=0; x<w; x++){       
+            pixelRGB* current_pixel = get_pixel(data, w, h, n, x, y);
+            int nouveau_x = y;
+            int nouveau_y = w-1-x;
+            pixelRGB* rotate_a_pixel = get_pixel(rotate_a_data, h, w, n, nouveau_x, nouveau_y);
+            rotate_a_pixel->R = current_pixel->R;
+            rotate_a_pixel->G = current_pixel->G;
+            rotate_a_pixel->B = current_pixel->B;
+        }
+    }
+    write_image_data("image_out.bmp", rotate_a_data, h, w);
 }
