@@ -117,6 +117,11 @@ int main(int argc, char **argv) {
     color_gray_luminance(configuration.filenames[0]);
   }
 
+  if ( strncmp( configuration.command, "rotate_cw", 9 ) == 0 ) {
+    /* rotate_cw() function is defined in feature.h and implemented in feature.c */
+    rotate_cw(configuration.filenames[0]);
+  }
+
   if ( strncmp( configuration.command, "mirror_horizontal", 17 ) == 0 ) {
     /* mirror_horizontal() function is defined in feature.h and implemented in feature.c */
     mirror_horizontal(configuration.filenames[0]);
@@ -132,5 +137,14 @@ int main(int argc, char **argv) {
     mirror_vertical(configuration.filenames[0]);
   }
 
+  if ( strncmp( configuration.command, "mirror_total", 15 ) == 0 ) {
+    /* mirror_total() function is defined in feature.h and implemented in feature.c */
+    mirror_total(configuration.filenames[0]);
+  }
+
+  if ( strncmp( configuration.command, "scale_crop", 10 ) == 0 ) {
+    /* scale_crop() function is defined in feature.h and implemented in feature.c */
+    scale_crop(configuration.filenames[0],atoi(configuration.arguments[0]) ,atoi(configuration.arguments[1]) ,atoi(configuration.arguments[2]) ,atoi(configuration.arguments[3]));
+  }
   return 0;
 }
