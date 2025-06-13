@@ -118,7 +118,7 @@ void min_pixel(char*source_path){
     printf("min_pixel (%d %d): %d, %d, %d\n", min_x, min_y, min_pixel->R, min_pixel->G, min_pixel->B);
 }
 
-void max_component(char *source_path, char color_pixel){
+int max_component(char *source_path, char color_pixel){
     unsigned char* data = NULL;
     int w, h, n, x, y; 
     int max_x = 0;
@@ -147,6 +147,7 @@ void max_component(char *source_path, char color_pixel){
         }
     } 
     printf("max_component %c (%d %d): %d\n", color_pixel, max_x, max_y, color_pixel_max);
+    return(max_x, max_y, color_pixel_max);
 }
 
 void min_component(char *source_path, char color_pixel){
@@ -192,3 +193,27 @@ void min_component(char *source_path, char color_pixel){
     } 
     printf("min_component %c (%d %d): %d\n", color_pixel, max_x, max_y, color_pixel_min);
 }
+
+void stat_report(char * source_path){
+    FILE * fichier = fopen("report.txt","w");
+
+    max_pixel(source_path);
+    fprintf(fichier,"\n");
+    min_pixel(source_path);
+    fprintf(fichier,"\n");
+    a, b, c = max_component(&source_path, 'R');
+    fprintf(fichier,"max_component R (%d %d): %d\n", a, b, c);
+    max_component(source_path, 'G');
+    fprintf(fichier,"\n");
+    max_component(source_path, 'B');
+    fprintf(fichier,"\n");
+    min_component(source_path,'R');
+    fprintf(fichier,"\n");
+    min_component(source_path,'G');
+    fprintf(fichier,"\n");
+    min_component(source_path,'B');
+    fprintf(fichier,"\n");
+
+    fclose(fichier);
+}
+
