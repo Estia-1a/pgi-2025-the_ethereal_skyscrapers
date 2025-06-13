@@ -6,7 +6,8 @@
             "-f",
             "images/input/image.jpeg",
             "-c",
-            "stat_report"
+            "mirror_horizontal"
+            
         ],
         "cwd": "${workspaceFolder}"
     },
