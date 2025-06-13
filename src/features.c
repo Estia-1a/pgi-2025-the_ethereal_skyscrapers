@@ -412,10 +412,10 @@ void mirror_total(char *source_path){
     write_image_data("image_out.bmp", mirror_t_data, w, h);
 }
 
-void scale_crop(char *sourcepath, int center_x, int center_y, int width, int height){
+void scale_crop(char *source_path, int center_x, int center_y, int width, int height){
     unsigned char* data = NULL;
     int original_width, original_height, n, x, y; 
-    read_image_data(sourcepath, &data, &original_width, &original_height, &n);
+    read_image_data(source_path, &data, &original_width, &original_height, &n);
     int first_x = center_x - width/2;
     int first_y = center_y - height/2;
 
