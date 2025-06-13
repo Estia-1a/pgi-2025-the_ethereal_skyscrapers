@@ -206,7 +206,7 @@ char* min_component(char *source_path, char color_pixel){
 }
 
 void stat_report(char *source_path){
-    FILE *report = fopen("C:/PGI1A/pgi-2025-the_ethereal_skyscrapers/file.txt", "w");
+    FILE *report = fopen("file.txt", "w");
     
     char* maxpixel = max_pixel(source_path);
     char* minpixel = min_pixel(source_path);
