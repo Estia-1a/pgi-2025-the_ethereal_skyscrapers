@@ -86,7 +86,6 @@ int main(int argc, char **argv) {
     /* stat_report() function is defined in feature.h and implemented in feature.c */
     stat_report(configuration.filenames[0]);
   }
-  
 
   return 0;
 }

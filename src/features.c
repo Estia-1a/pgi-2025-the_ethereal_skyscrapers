@@ -14,13 +14,13 @@
 void helloWorld() {
     printf("Hello World !!!!!");
 }
-void dimension(char*source_path) {
+void dimension(char* source_path) {
     unsigned char* data = NULL;
     int w=0, h=0, n=0;
     read_image_data(source_path, &data, &w, &h, &n);
     printf("dimension : %d, %d\n", w, h);
 }
-void first_pixel(char*source_path){
+void first_pixel(char* source_path){
     unsigned char* data = NULL;
     int w, h, n;
     
@@ -32,7 +32,7 @@ void first_pixel(char*source_path){
 
     printf("first_pixel: %d, %d, %d", R, G, B);
 }
-void tenth_pixel(char*source_path){
+void tenth_pixel(char* source_path){
     unsigned char* data = NULL;
     int w, h, n;
     
@@ -44,7 +44,7 @@ void tenth_pixel(char*source_path){
 
     printf("tenth_pixel: %d, %d, %d", R, G, B);
 }
-void second_line(char*source_path){
+void second_line(char* source_path){
     unsigned char* data = NULL;
     int w, h, n;
     
@@ -206,8 +206,7 @@ char* min_component(char *source_path, char color_pixel){
 }
 
 void stat_report(char *source_path){
-    FILE *report = fopen("C:/PGI1A/pgi-2025-the_ethereal_skyscrapers/file.txt", "w");
-    
+    FILE *report = fopen("file.txt", "w");
     char* maxpixel = max_pixel(source_path);
     char* minpixel = min_pixel(source_path);
     char* max_componentR = max_component(source_path,'R');
