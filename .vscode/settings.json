@@ -6,8 +6,8 @@
             "-f",
             "images/input/image.jpeg",
             "-c",
-            "stat_report",
-            "R"
+            "stat_report"
+            
         ],
         "cwd": "${workspaceFolder}"
     },
