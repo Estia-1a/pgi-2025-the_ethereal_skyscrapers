@@ -152,5 +152,10 @@ int main(int argc, char **argv) {
     color_gray_luminance(configuration.filenames[0]);
   }
 
+  if (strncmp(configuration.command, "scale_nearest", 13) == 0) {
+    float val = atof(configuration.arguments[0]);
+    scale_nearest(configuration.filenames[0], val);
+}
+
   return 0;
 }
