@@ -471,3 +471,40 @@ void color_desaturate(char *source_path){
     }
     write_image_data("image_out.bmp", data, w, h);
 }
+
+
+void scale_nearest(char *source_path, float val) {
+    unsigned char* data = NULL;
+    int w, h, n;
+
+    read_image_data(source_path, &data, &w, &h, &n); 
+
+    int new_w = (int)(w * val);
+    int new_h = (int)(h * val);
+
+    unsigned char* scaled_data = malloc(new_w * new_h * n);
+    if (!scaled_data) {
+        free(data);
+        return;
+    }
+
+    float x_ratio = (float)w / new_w;
+    float y_ratio = (float)h / new_h;
+
+    for (int y = 0; y < new_h; y++) {
+        for (int x = 0; x < new_w; x++) {
+            int nearest_x = (int)(x * x_ratio);
+            int nearest_y = (int)(y * y_ratio);
+
+            pixelRGB* src_pixel = get_pixel(data, w, h, n, nearest_x, nearest_y);
+            pixelRGB* dst_pixel = get_pixel(scaled_data, new_w, new_h, n, x, y);
+
+            dst_pixel->R = src_pixel->R;
+            dst_pixel->G = src_pixel->G;
+            dst_pixel->B = src_pixel->B;
+        }
+    }
+
+    write_image_data("image_out.bmp", scaled_data, new_w, new_h);
+
+}
