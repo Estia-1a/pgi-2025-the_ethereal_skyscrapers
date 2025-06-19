@@ -419,8 +419,14 @@ void scale_crop(char *source_path, int center_x, int center_y, int width, int he
     int first_x = center_x - width/2;
     int first_y = center_y - height/2;
 
-    if (first_x<0) first_x=0;
-    if (first_y<0) first_y=0;
+    if (first_x<0) {
+        width = width + first_x;
+        first_x=0;
+    }
+    if (first_y<0) { 
+        height = height + first_y;
+        first_y=0;
+    }
     if (first_x + width > original_width) width = original_width - first_x;
     if (first_y + height > original_height) height = original_height - first_y;
 
