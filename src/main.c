@@ -146,5 +146,9 @@ int main(int argc, char **argv) {
     /* scale_crop() function is defined in feature.h and implemented in feature.c */
     scale_crop(configuration.filenames[0],atoi(configuration.arguments[0]) ,atoi(configuration.arguments[1]) ,atoi(configuration.arguments[2]) ,atoi(configuration.arguments[3]));
   }
-  return 0;
+  
+  if ( strncmp( configuration.command, "scale_nearest", 13 ) == 0 ) {
+    /* scale_nearest() function is defined in feature.h and implemented in feature.c */
+    scale_nearest(configuration.filenames[0],atoi(configuration.arguments[0]));
+  }
 }
