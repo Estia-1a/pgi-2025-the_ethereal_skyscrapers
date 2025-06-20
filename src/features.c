@@ -419,8 +419,14 @@ void scale_crop(char *source_path, int center_x, int center_y, int width, int he
     int first_x = center_x - width/2;
     int first_y = center_y - height/2;
 
-    if (first_x<0) first_x=0;
-    if (first_y<0) first_y=0;
+    if (first_x<0) {
+        width = width + first_x;
+        first_x=0;
+    }
+    if (first_y<0) { 
+        height = height + first_y;
+        first_y=0;
+    }
     if (first_x + width > original_width) width = original_width - first_x;
     if (first_y + height > original_height) height = original_height - first_y;
 
@@ -439,34 +445,72 @@ void scale_crop(char *source_path, int center_x, int center_y, int width, int he
     write_image_data("image_out.bmp",cropped_data,width,height);
 }
 
-void scale_nearest(char *source_path, float X){
-    unsigned char* data = NULL; 
-    int original_width, original_height, n, x, y ; 
-    read_image_data(source_path, &data, &original_width, &original_height, &n);
+void color_desaturate(char *source_path){
+    unsigned char* data = NULL;
+    int w, h, n, x, y; 
+    read_image_data(source_path, &data, &w, &h, &n);
+    for(y=0; y<h; y++){
+        for(x=0; x<w; x++){       
+            pixelRGB * pixel = get_pixel(data, w, h, n, x, y);
+            unsigned char val_min = pixel->R;
+            if(val_min>pixel->G){
+                val_min = pixel->G;
+            }
+            if(val_min>pixel->B){
+                val_min = pixel->B;
+            }
 
-    int new_width = original_width * X ;
-    int new_height = original_height * X ; 
+            unsigned char val_max = pixel->R;
+            if(val_max<pixel->G){
+                val_max = pixel->G;
+            }
+            if(val_max<pixel->B){
+                val_max = pixel->B;
+            }
 
-    unsigned char* scale_data = malloc(new_width * new_height * n);
+            unsigned char value =(val_min+val_max)/2 ;
+            pixel->R=value;
+            pixel->G=value;
+            pixel->B=value;
+        }
 
-    for (y=0; y<new_height; y++){
-        for(x=0; x<new_width; x++) {
-            int src_x = round(x / X);
-            int src_y = round(y / X);
+    }
+    write_image_data("image_out.bmp", data, w, h);
+}
 
-            if (src_x<0) src_x=0;
-        if (src_y<0) src_y=0;
-        if (src_x >= original_width) src_x = original_width - 1;
-        if (src_y >= original_height) src_y = original_height - 1;
 
-            pixelRGB* src_pixel = get_pixel(data, original_width, original_height, n, src_x, src_y);
-            pixelRGB* scale_pixel = get_pixel(scale_data, new_width, new_height, n, x, y);
+void scale_nearest(char *source_path, float val) {
+    unsigned char* data = NULL;
+    int w, h, n;
 
-            *scale_pixel = *src_pixel;
+    read_image_data(source_path, &data, &w, &h, &n); 
 
+    int new_w = (int)(w * val);
+    int new_h = (int)(h * val);
+
+    unsigned char* scaled_data = malloc(new_w * new_h * n);
+    if (!scaled_data) {
+        free(data);
+        return;
+    }
+
+    float x_ratio = (float)w / new_w;
+    float y_ratio = (float)h / new_h;
+
+    for (int y = 0; y < new_h; y++) {
+        for (int x = 0; x < new_w; x++) {
+            int nearest_x = (int)(x * x_ratio);
+            int nearest_y = (int)(y * y_ratio);
+
+            pixelRGB* src_pixel = get_pixel(data, w, h, n, nearest_x, nearest_y);
+            pixelRGB* dst_pixel = get_pixel(scaled_data, new_w, new_h, n, x, y);
+
+            dst_pixel->R = src_pixel->R;
+            dst_pixel->G = src_pixel->G;
+            dst_pixel->B = src_pixel->B;
         }
     }
-    
-    write_image_data("image_out.bmp",scale_data,new_width,new_height);
+
+    write_image_data("image_out.bmp", scaled_data, new_w, new_h);
 
 }
