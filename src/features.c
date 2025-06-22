@@ -419,6 +419,7 @@ void scale_crop(char *source_path, int center_x, int center_y, int width, int he
     int first_x = center_x - width/2;
     int first_y = center_y - height/2;
 
+
     if (first_x<0) {
         width = width + first_x;
         first_x=0;
@@ -431,7 +432,11 @@ void scale_crop(char *source_path, int center_x, int center_y, int width, int he
     if (first_y + height > original_height) height = original_height - first_y;
 
     
-    unsigned char* cropped_data = malloc(width*height*n);
+    unsigned char* cropped_data = malloc(width * height * n);
+    if (!cropped_data) {
+    free(data);
+    return;
+    }
     
     for ( y=0; y < height;y++){
         for(x=0; x < width;x++){
@@ -512,5 +517,60 @@ void scale_nearest(char *source_path, float val) {
     }
 
     write_image_data("image_out.bmp", scaled_data, new_w, new_h);
+
+}
+
+void scale_bilinear(char *source_path, float val){
+    unsigned char* data=NULL;
+    int w, h, n, x, y;
+
+    read_image_data(source_path, &data, &w, &h, &n);
+
+    int new_w = (int)(w * val);
+    int new_h = (int)(h * val);
+
+    unsigned char* scaled_data = malloc(new_w * new_h * n);
+    if (!scaled_data) {
+        free(data);
+        return;
+    }
+
+    float x_ratio = (float)(w - 1) / new_w;
+    float y_ratio = (float)(h-1) / new_h;
+
+    float gx, gy, dx, dy;
+    int x1, x2, y1, y2;
+
+    for (y = 0;y < new_h; y++){
+        for (x=0; x<new_w; x++){
+
+            gx= x *x_ratio;
+            gy = y* y_ratio;
+
+            x1 = (int)gx;
+            y1 = (int)gy;
+            x2 = x1 + 1;
+            y2 = y1 + 1;
+
+            dx = gx - x1;
+            dy = gy - y1;
+
+            if (x2 >= w) x2 = w - 1;
+            if(y2 >= h) y2 = h -1;
+
+            pixelRGB* A= get_pixel(data, w, h, n, x1, y1);
+            pixelRGB* E= get_pixel(data, w, h, n, x2, y1);
+            pixelRGB* C= get_pixel(data, w, h, n, x1, y2);
+            pixelRGB* D= get_pixel(data, w, h, n, x2, y2);
+
+            pixelRGB* dst =get_pixel(scaled_data, new_w, new_h, n, x, y);
+
+            dst->R = (unsigned char)(A->R *(1-dx)*(1-dy)+E->R * dx*(1-dy)+C->R*(1-dx)*dy+D->R*dx*dy);
+            dst->G = (unsigned char)(A->G *(1-dx)*(1-dy)+E->G * dx*(1-dy)+C->G*(1-dx)*dy+D->G*dx*dy);
+            dst->B = (unsigned char)(A->B *(1-dx)*(1-dy)+E->B * dx*(1-dy)+C->B*(1-dx)*dy+D->B*dx*dy);
+
+            write_image_data("image_out.bmp", scaled_data, new_w, new_h);
+        }
+    }
 
 }

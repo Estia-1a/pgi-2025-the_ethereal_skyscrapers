@@ -52,4 +52,7 @@ void color_desaturate(char *source_path);
 
 void scale_nearest(char *source_path, float val);
 
+void scale_bilinear(char *source_path, float val);
+
+
 #endif
