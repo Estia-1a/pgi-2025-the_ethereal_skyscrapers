@@ -412,42 +412,41 @@ void mirror_total(char *source_path){
     write_image_data("image_out.bmp", mirror_t_data, w, h);
 }
 
-void scale_crop(char *source_path, int center_x, int center_y, int width, int height){
-    unsigned char* data = NULL;
-    int original_width, original_height, n, x, y; 
+void scale_crop(char *source_path, int center_x, int center_y, int width, int height) {
+    unsigned char *data = NULL;
+    int original_width, original_height, n;
+
     read_image_data(source_path, &data, &original_width, &original_height, &n);
-    int first_x = center_x - width/2;
-    int first_y = center_y - height/2;
 
+    int start_x = center_x - width / 2;
+    int start_y = center_y - height / 2;
 
-    if (first_x<0) {
-        width = width + first_x;
-        first_x=0;
-    }
-    if (first_y<0) { 
-        height = height + first_y;
-        first_y=0;
-    }
-    if (first_x + width > original_width) width = original_width - first_x;
-    if (first_y + height > original_height) height = original_height - first_y;
-
-    
-    unsigned char* cropped_data = malloc(width * height * n);
+    unsigned char *cropped_data = malloc(width * height * n);
     if (!cropped_data) {
-    free(data);
-    return;
+        free(data);
+        return;
     }
-    
-    for ( y=0; y < height;y++){
-        for(x=0; x < width;x++){
-            pixelRGB* current_original_pixel = get_pixel(data, original_width, original_height, n, x + first_x, y + first_y);
-            pixelRGB* current_data_cropped_pixel = get_pixel(cropped_data, width, height, n, x, y);
-            current_data_cropped_pixel->R=current_original_pixel->R;
-            current_data_cropped_pixel->G=current_original_pixel->G;
-            current_data_cropped_pixel->B=current_original_pixel->B;
+
+
+    for (int y = 0; y < height; y++) {
+        int src_y = start_y + y;
+        if (src_y < 0 || src_y >= original_height) continue;
+
+        for (int x = 0; x < width; x++) {
+            int src_x = start_x + x;
+            if (src_x < 0 || src_x >= original_width) continue;
+
+            pixelRGB *src_pixel = get_pixel(data, original_width, original_height, n, src_x, src_y);
+            pixelRGB *dst_pixel = get_pixel(cropped_data, width, height, n, x, y);
+
+            dst_pixel->R = src_pixel->R;
+            dst_pixel->G = src_pixel->G;
+            dst_pixel->B = src_pixel->B;
         }
     }
-    write_image_data("image_out.bmp",cropped_data,width,height);
+
+    write_image_data("image_out.bmp", cropped_data, width, height);
+
 }
 
 void color_desaturate(char *source_path){
